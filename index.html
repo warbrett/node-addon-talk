@@ -4,9 +4,10 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+		<title>Native Addons</title>
 
 		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/custom.css">
 		<link rel="stylesheet" href="css/theme/black.css">
 
 		<!-- Theme used for syntax highlighting of code -->
@@ -33,17 +34,25 @@
           </script>
         </section>
         <section data-markdown>
-          <script type="text/template">
-            ###whoami  
-            Brett Warner  
-            Senior Application Developer  
-            github.com/warbrett  
-            Really doesn't know that much C/C++ 
+          <script type="text/markdown">
+            Follow along:  
+            https://warbrett.github.io/node-addon-talk
           </script>
         </section>
         <section data-markdown>
           <script type="text/template">
-            # So what's an addon?
+            ###whoami  
+            Brett Warner  
+            Senior Application Developer   
+            Works @ Iced Dev([iceddev.com](https://iceddev.com))  
+            [github.com/warbrett](https://www.github.com/warbrett)  
+            Really doesn't know that much C/C++  
+            Never goes on Twitter([@brett_warner](https://twitter.com/@brett_warner))  
+          </script>
+        </section>
+        <section data-markdown>
+          <script type="text/template">
+            ## So what's an addon?
             * It's a module written in C/C++ <!-- .element: class="fragment" data-fragment-index="1" -->
             * Can compile on target machine, but doesn't have to <!-- .element: class="fragment" data-fragment-index="2" -->
             * Can be synchronous/blocking or async <!-- .element: class="fragment" data-fragment-index="3" -->
@@ -52,8 +61,8 @@
         </section>
         <section data-markdown>
           <script type="text/template">
-            # Brief Overview
-            ## Pros
+            ## Brief Overview
+            ### Pros
             * Allow you to write modules in C/C++<!-- .element: class="fragment" data-fragment-index="1" -->
             * Access 'To the metal'<!-- .element: class="fragment" data-fragment-index="2" -->
             * Can compile on the target machine, but don't necessarily need to<!-- .element: class="fragment" data-fragment-index="3" -->
@@ -63,8 +72,8 @@
         </section>
         <section data-markdown>
           <script type="text/template">
-            # Brief Overview
-            ## Cons
+            ## Brief Overview
+            ### Cons
             * You write native addons in C/C++<!-- .element: class="fragment" data-fragment-index="1" -->
             * Crossing the language barrier is expensive and not suited for small jobs<!-- .element: class="fragment" data-fragment-index="2" -->
             * Compiling locally can be tricky<!-- .element: class="fragment" data-fragment-index="3" -->
@@ -73,24 +82,24 @@
         </section>
         <section data-markdown>
           <script type="text/template">
-            ![Image of Angry People](/img/fixstuff.jpeg)
+            ![Image of Angry People](img/fixstuff.jpeg)
             Note: When I first started doing node development 4 years ago I was on windows. This was my impression of everything 
           </script>
         </section>
         <section data-markdown>
           <script type="text/template">
-            ![Image of Angry People](/img/angry.png)
+            ![Image of Angry People](img/angry.png)
           </script>
         </section>
         <section data-markdown>
           <script type="text/template">
-            ![Image of Angry People](/img/angry-response.png)
+            ![Image of Angry People](img/angry-response.png)
             Note: Thankfully this was the most upvoted comment making the whole thread a little bit better
           </script>
         </section>
         <section data-markdown>
           <script type="text/template">
-            # But seriously, why?
+            ## But seriously, why?
             * There's an awesome C/C++ library you want to use<!-- .element: class="fragment" data-fragment-index="1" -->
             * You didn't listen to everyone who said don't use JS for crypto <!-- .element: class="fragment" data-fragment-index="2" -->
             * Maybe you really need access to those low level apis<!-- .element: class="fragment" data-fragment-index="3" -->
@@ -99,7 +108,7 @@
         </section>
         <section data-markdown>
           <script type="text/template">
-            # Major Players
+            ## Major Players
             * npm
             * node-gyp (also cmake-js and others)
             * nan
@@ -109,28 +118,29 @@
         </section>
         <section data-markdown>
           <script type="text/template">
-            # Npm
+            ## Npm
             Allows us to use things like post Install hooks to compile or pull down a binary when someone downloads our module.
           </script>
         </section>
         <section data-markdown>
           <script type="text/template">
-            # node-gyp
+            ## node-gyp
             The much loathed bastard child created by Too Tall Nate.  Much like Javascript it’s absolutely amazing but everyone just loves to hate it. This is what preprocesses, links and compiles our add ons.
             Note: Most of the complaints people have are about node-gyp and Windows, but it really is more window's fault than node-gyps
           </script>
         </section>
         <section data-markdown>
           <script type="text/template">
-            # nan(Native Abstractions for Node)
+            ### nan
+            ####(Native Abstractions for Node)
             Header file, helps us keep our native addons compiling happily across node versions
             Note: It turns out stuff changes a lot between V8 and node Versions, while the demo later won't use nan you'll have a really really bad time without it this makes that less of a headache
           </script>
         </section>
         <section data-markdown>
           <script type="text/template">
-            # bindings
-            Makes life way easier by checking all of the spots a file can compile to so you don't need to hardcode a path to your requires
+            ### bindings
+            Makes life way easier by checking all of the spots a file can compile to so you don't need to hardcode a path to your require statements.
           Note: Keep in mind in most cases you're compiling on your user's machine, which means all sorts of crazy weirdness
           </script>
         </section>
@@ -141,7 +151,7 @@
         </section>
         <section data-markdown>
           <script type="text/template">
-            # Package json
+            ### Package json
             ```
 
 {
@@ -162,7 +172,7 @@
         </section>
         <section data-markdown>
           <script type="text/template">
-            # binding.gyp
+            ## binding.gyp
             ```
 {
   "targets": [
@@ -206,10 +216,10 @@ namespace demo {
         </section>
         <section data-markdown>
           <script type="text/template">
-            # index.js
+            #### index.js
 ```
 // Not using const feels bad, but it's a demo...
-// I can't expect you all to know ES2016 right?
+// I can't expect you all to know/love ES2016 right?
 // That would just be mean.
 var bindings = require('bindings')('hello.node');
 
@@ -226,7 +236,7 @@ module.exports = bindings;
         </section>
         <section data-markdown>
           <script type="text/template">
-            # Additional Resources
+            ## Additional Resources
             * https://nodejs.org/api/addons.html
             * https://blog.scottfrees.com/c-processing-from-node-js
             Note: Scott sells a $25 book, it looks really good and his blog posts were beyond helpful, but in his sales pitch he rants about bad docs. OS devs ragging on docs touches a nerve with me. I'm sure the book is great and he seems super smart though.
