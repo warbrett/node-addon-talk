@@ -30,7 +30,7 @@
             ### Crossing The Language Barrier With Node Native Addons 
 
             or why you should love node-gyp
-            Note: Raise hands, how many use modules, publish modules, publish modules in C/C++
+            Note: Raise hands, how many use modules, publish modules, publish modules in C++
           </script>
         </section>
         <section data-markdown>
@@ -46,14 +46,14 @@
             Senior Application Developer   
             Works @ Iced Dev([iceddev.com](https://iceddev.com))  
             [github.com/warbrett](https://www.github.com/warbrett)  
-            Really doesn't know that much C/C++  
+            Really doesn't know that much C++  
             Never goes on Twitter([@brett_warner](https://twitter.com/@brett_warner))  
           </script>
         </section>
         <section data-markdown>
           <script type="text/template">
             ## So what's an addon?
-            * It's a module written in C/C++ <!-- .element: class="fragment" data-fragment-index="1" -->
+            * It's a module written in C++ <!-- .element: class="fragment" data-fragment-index="1" -->
             * Can compile on target machine, but doesn't have to <!-- .element: class="fragment" data-fragment-index="2" -->
             * Can be synchronous/blocking or async <!-- .element: class="fragment" data-fragment-index="3" -->
             * Support most data types, passing/returning objects, arrays, etc <!-- .element: class="fragment" data-fragment-index="4" -->
@@ -63,7 +63,7 @@
           <script type="text/template">
             ## Brief Overview
             ### Pros
-            * Allow you to write modules in C/C++<!-- .element: class="fragment" data-fragment-index="1" -->
+            * Allow you to write modules in C++<!-- .element: class="fragment" data-fragment-index="1" -->
             * Access 'To the metal'<!-- .element: class="fragment" data-fragment-index="2" -->
             * Can compile on the target machine, but don't necessarily need to<!-- .element: class="fragment" data-fragment-index="3" -->
             * Do cpu/gpu intensive jobs much faster<!-- .element: class="fragment" data-fragment-index="4" -->
@@ -74,7 +74,7 @@
           <script type="text/template">
             ## Brief Overview
             ### Cons
-            * You write native addons in C/C++<!-- .element: class="fragment" data-fragment-index="1" -->
+            * You write native addons in C++<!-- .element: class="fragment" data-fragment-index="1" -->
             * Crossing the language barrier is expensive and not suited for small jobs<!-- .element: class="fragment" data-fragment-index="2" -->
             * Compiling locally can be tricky<!-- .element: class="fragment" data-fragment-index="3" -->
             * Inconsistancies and Screw ups can really piss the user off<!-- .element: class="fragment" data-fragment-index="4" -->
@@ -94,13 +94,13 @@
         <section data-markdown>
           <script type="text/template">
             ![Image of Angry People](img/angry-response.png)
-            Note: Thankfully this was the most upvoted comment making the whole thread a little bit better
+            Note: Thankfully this was the most upvoted comment making the whole thread a little bit better. I upvoted to
           </script>
         </section>
         <section data-markdown>
           <script type="text/template">
             ## But seriously, why?
-            * There's an awesome C/C++ library you want to use<!-- .element: class="fragment" data-fragment-index="1" -->
+            * There's an awesome C++ library you want to use<!-- .element: class="fragment" data-fragment-index="1" -->
             * You didn't listen to everyone who said don't use JS for crypto <!-- .element: class="fragment" data-fragment-index="2" -->
             * Maybe you really need access to those low level apis<!-- .element: class="fragment" data-fragment-index="3" -->
             * Or maybe you're just crazy like me and want to have some fun<!-- .element: class="fragment" data-fragment-index="4" -->
@@ -125,7 +125,7 @@
         <section data-markdown>
           <script type="text/template">
             ## node-gyp
-            The much loathed bastard child created by Too Tall Nate.  Much like Javascript it’s absolutely amazing but everyone just loves to hate it. This is what preprocesses, links and compiles our add ons.
+            Created by TooTallNate. Much like Javascript it’s absolutely amazing but everyone just loves to hate it. This is compiles our add ons.
             Note: Most of the complaints people have are about node-gyp and Windows, but it really is more window's fault than node-gyps
           </script>
         </section>
@@ -199,19 +199,19 @@ namespace demo {
   using v8::String;
   using v8::Value;
 
-  void Method(const FunctionCallbackInfo<Value>& args) {
+  void myMethod(const FunctionCallbackInfo<Value>& args) {
     Isolate* isolate = args.GetIsolate();
     args.GetReturnValue().Set(String::NewFromUtf8(isolate, "world"));
   }
 
   void init(Local<Object> exports) {
-    NODE_SET_METHOD(exports, "hello", Method);
+    NODE_SET_METHOD(exports, "hello", myMethod);
   }
 
   NODE_MODULE(addon, init)
 }
 ```
-            Note: Our main file... touch on macro and required pieces
+            Note: Our main file... touch on macro is. The input arguments which will be passed from a JavaScript call are V8 objects. The isolate object represents the actual V8 VM instance
           </script>
         </section>
         <section data-markdown>
@@ -237,6 +237,7 @@ module.exports = bindings;
         <section data-markdown>
           <script type="text/template">
             ## Additional Resources
+            * NodeSchool.io's Native Addon Course
             * https://nodejs.org/api/addons.html
             * https://blog.scottfrees.com/c-processing-from-node-js
             Note: Scott sells a $25 book, it looks really good and his blog posts were beyond helpful, but in his sales pitch he rants about bad docs. OS devs ragging on docs touches a nerve with me. I'm sure the book is great and he seems super smart though.
